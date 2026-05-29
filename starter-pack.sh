@@ -58,8 +58,45 @@ Include:
 Make it detailed enough that a brand-new session reading only this file could continue with no other context. Confirm the file path when done.
 EOF
 
+# --- Sanitized starter CLAUDE.md (generic good-practice, no private infra) ---
+CLAUDE_MD="$HOME/.claude/CLAUDE.md"
+if [ -f "$CLAUDE_MD" ]; then
+  cp "$CLAUDE_MD" "$CLAUDE_MD.bak.$(date +%Y%m%d%H%M%S)"
+  echo "Existing CLAUDE.md backed up (not overwritten)."
+else
+  cat > "$CLAUDE_MD" <<'EOF'
+# Claude Code — How to work with me
+
+## Communication
+- Be direct and clear. Lead with the answer, then the details.
+- Use plain language. Explain technical terms when they first come up.
+- Times in Central Time, 12-hour format (e.g., "2:30 PM").
+
+## Safety rules (never break these)
+- NEVER run destructive commands (delete files/folders, `rm -rf`, `git reset --hard`,
+  force-push, wipe a database) without asking me first and explaining what it does.
+- NEVER spend money, enter payment info, or sign up for paid services without my explicit OK.
+- NEVER put passwords, API keys, or secrets in plain text or commit them to git.
+- ASK before installing software or changing system settings.
+
+## How to work
+- Research before building — check official docs first, prefer proven approaches.
+- Ask questions before any big task. Clarify what I actually want and the edge cases.
+- Tell me your plan before doing anything that changes files or settings, and wait for OK.
+- Keep code simple: small files, small functions, clear names. No over-engineering.
+- After making changes, summarize what you did in plain English.
+
+## My commands
+- `/research <topic>` — web research with real, cited sources.
+- `/archive` — summarize this session and append it to a local log.
+- `/save-session` — save context so a future session can pick up where we left off.
+EOF
+  echo "Installed starter CLAUDE.md -> $CLAUDE_MD"
+fi
+
 echo ""
-echo "Done. Installed 3 commands:"
+echo "Done. Installed:"
+echo "  CLAUDE.md       -> $CLAUDE_MD"
 echo "  /research       -> $CMD_DIR/research.md"
 echo "  /archive        -> $CMD_DIR/archive.md"
 echo "  /save-session   -> $CMD_DIR/save-session.md"
