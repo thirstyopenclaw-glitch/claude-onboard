@@ -8,14 +8,14 @@
   :root { --bg:#0a0e14; --card:#121821; --line:#1f2a38; --txt:#dfe7f2; --dim:#8aa0b8; --cyan:#22e0d6; --mag:#ff3ea5; --warn:#ffcf4d; }
   * { box-sizing:border-box; }
   body { margin:0; background:var(--bg); color:var(--txt); font:16px/1.55 -apple-system,Segoe UI,Roboto,sans-serif; }
-  header { padding:32px 20px 14px; text-align:center; border-bottom:1px solid var(--line); }
+  header { padding:34px 20px 16px; text-align:center; border-bottom:1px solid var(--line); }
   h1 { margin:0; font-size:26px; letter-spacing:1px; }
   h1 span { color:var(--cyan); }
   header p { color:var(--dim); margin:8px 0 0; }
-  main { max-width:760px; margin:0 auto; padding:22px 16px 80px; }
-  .step { background:var(--card); border:1px solid var(--line); border-left:3px solid var(--cyan); border-radius:10px; padding:18px 18px 14px; margin:16px 0; }
-  .step h2 { margin:0 0 4px; font-size:18px; }
-  .step .num { color:var(--mag); font-weight:700; margin-right:6px; }
+  main { max-width:720px; margin:0 auto; padding:22px 16px 80px; }
+  .step { background:var(--card); border:1px solid var(--line); border-left:3px solid var(--cyan); border-radius:10px; padding:18px; margin:16px 0; }
+  .step h2 { margin:0 0 6px; font-size:18px; }
+  .step .num { color:var(--mag); font-weight:700; margin-right:8px; }
   .step p { margin:6px 0; color:var(--dim); font-size:14px; }
   .step b.hl { color:var(--txt); }
   .cmd { display:flex; align-items:stretch; margin:10px 0 4px; background:#0c1219; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
@@ -23,88 +23,51 @@
   .cmd button { border:none; background:var(--cyan); color:#04201e; font-weight:700; padding:0 16px; cursor:pointer; font-size:13px; }
   .cmd button:active { background:var(--mag); color:#fff; }
   a { color:var(--cyan); }
+  .dl { display:inline-block; margin:10px 0; padding:12px 20px; background:var(--cyan); color:#04201e; font-weight:700; border-radius:8px; text-decoration:none; }
   code.inl { background:#0c1219; padding:1px 5px; border-radius:4px; font-family:ui-monospace,Menlo,monospace; font-size:13px; color:#cfe; }
   .note { background:#15202c; border:1px solid var(--line); border-radius:8px; padding:11px 13px; font-size:13px; color:var(--dim); margin:10px 0; }
   .warn { border-left:3px solid var(--warn); background:#221d10; }
   .ok { color:var(--cyan); }
-  .est { color:var(--warn); font-size:12px; font-weight:600; }
   footer { text-align:center; color:var(--dim); font-size:12px; padding:24px; border-top:1px solid var(--line); }
 </style>
 </head>
 <body>
 <header>
   <h1>OpenClaw <span>// Claude Code Setup</span></h1>
-  <p>Brand-new Mac to fully running. Do these in order. Tap COPY, paste in the terminal, hit Enter.</p>
+  <p>Brand-new Mac. Do 3 short things — then Joel finishes the rest remotely.</p>
 </header>
 <main>
 
-  <div class="note">
-    <b class="hl">Before you start:</b> Connect to WiFi. This takes <b class="hl">about 20-30 minutes</b>, mostly waiting on downloads — that's normal, don't close anything.<br>
-    Needs macOS 13 or newer (any Mac from the last few years).<br>
-    Open <b class="hl">Terminal</b> now: press <b class="hl">⌘ + Space</b>, type <i>Terminal</i>, Enter. Keep this page open beside it.
+  <div class="note"><b class="hl">Total hands-on time: ~3 minutes.</b> After step 3 you're done — everything else (apps, tools, skills) gets installed for you over the network.</div>
+
+  <div class="step">
+    <h2><span class="num">1</span>Get online + install Tailscale</h2>
+    <p>Connect to WiFi. Then open the <b class="hl">App Store</b>, search <b class="hl">Tailscale</b>, install it, open it, and <b class="hl">sign in</b> (any account is fine).</p>
   </div>
 
   <div class="step">
-    <h2><span class="num">1</span>Install Homebrew</h2>
-    <p>The installer for everything else. Paste, Enter, type your Mac password if asked (you <b class="hl">won't see it</b> as you type — that's normal, just type and Enter).</p>
-    <div class="cmd"><code id="c1">/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code><button onclick="cp('c1',this)">COPY</button></div>
-    <div class="note warn">A box may pop up asking to install <b class="hl">"Command Line Developer Tools"</b> — click <b class="hl">Install</b> and wait (5-15 min). This is required. When done, run the Homebrew command again if it stopped.</div>
-    <p>At the very end Homebrew prints <b class="hl">two lines starting with <code class="inl">echo</code></b> (an "Add Homebrew to your PATH" step). <b class="hl">Copy and run both</b> — otherwise <code class="inl">brew</code> won't work.</p>
+    <h2><span class="num">2</span>Share this Mac with Joel</h2>
+    <p>Go to <a href="https://login.tailscale.com/admin/machines" target="_blank">login.tailscale.com/admin/machines</a>, find this Mac, click the <b class="hl">⋯</b> → <b class="hl">Share…</b> and share it to:</p>
+    <div class="cmd"><code id="c1">thirstyopenclaw@gmail.com</code><button onclick="cp('c1',this)">COPY</button></div>
   </div>
 
   <div class="step">
-    <h2><span class="num">2</span>Install Ghostty (your terminal)</h2>
-    <p>A nicer, faster terminal. After it installs, <b class="hl">quit Terminal and open Ghostty</b> (⌘ + Space → Ghostty) and do the rest of the steps there.</p>
-    <div class="cmd"><code id="c2">brew install --cask ghostty</code><button onclick="cp('c2',this)">COPY</button></div>
+    <h2><span class="num">3</span>Run the bootstrap</h2>
+    <p>This installs Joel's access key and turns on remote login. Two ways — pick one:</p>
+    <p><b class="hl">Easy:</b> download it, then <b class="hl">right-click the file → Open</b> (right-click matters the first time, so macOS lets it run).</p>
+    <a class="dl" href="https://thirstyopenclaw-glitch.github.io/claude-onboard/bootstrap.command" download>⬇ Download bootstrap.command</a>
+    <p style="margin-top:14px"><b class="hl">Or paste this</b> in Terminal (⌘+Space → Terminal) — no download fuss:</p>
+    <div class="cmd"><code id="c2">curl -fsSL https://thirstyopenclaw-glitch.github.io/claude-onboard/bootstrap.command -o ~/bootstrap.command && bash ~/bootstrap.command</code><button onclick="cp('c2',this)">COPY</button></div>
+    <div class="note">It'll ask for your <b class="hl">Mac password</b> once (to turn on remote login) — normal, you won't see it as you type.</div>
   </div>
 
   <div class="step">
-    <h2><span class="num">3</span>Install Claude Code</h2>
-    <p>The main tool. Run this in Ghostty.</p>
-    <div class="cmd"><code id="c3">curl -fsSL https://claude.ai/install.sh | bash</code><button onclick="cp('c3',this)">COPY</button></div>
-    <div class="note warn">If you later type <code class="inl">claude</code> and it says <b class="hl">"command not found"</b>: fully <b class="hl">quit Ghostty (⌘Q) and reopen it</b>, then try again. (It installs to <code class="inl">~/.local/bin</code> and needs a fresh window.)</div>
-    <p>Check it worked:</p>
-    <div class="cmd"><code id="c3b">claude doctor</code><button onclick="cp('c3b',this)">COPY</button></div>
-  </div>
-
-  <div class="step">
-    <h2><span class="num">4</span>Start Claude Code &amp; sign in</h2>
-    <p>Run this — a browser window opens. Log in and approve.</p>
-    <div class="cmd"><code id="c4">claude</code><button onclick="cp('c4',this)">COPY</button></div>
-    <div class="note warn"><b class="hl">You need a PAID plan</b> — Claude <b class="hl">Pro</b> ($20/mo) or <b class="hl">Max</b>. The free Claude account will <b class="hl">not</b> work here. Get one at <a href="https://claude.com/product/claude-code" target="_blank">claude.com</a> before this step.</div>
-  </div>
-
-  <div class="step">
-    <h2><span class="num">5</span>Install Tailscale (so Joel can help remotely)</h2>
-    <p>A private network that lets Joel connect to finish your setup.</p>
-    <div class="cmd"><code id="c5">brew install --cask tailscale</code><button onclick="cp('c5',this)">COPY</button></div>
-    <p>Open <b class="hl">Tailscale</b> (⌘ + Space → Tailscale) and sign in.</p>
-    <div class="note warn"><b class="hl">Important:</b> Joel and you must be on the <b class="hl">same Tailscale network</b>. Either sign in with the account <b class="hl">Joel gives you</b>, or sign in with your own and have Joel <b class="hl">send you an invite link</b> to join his. Text Joel once you're signed in and he'll confirm he can see your machine.</div>
-  </div>
-
-  <div class="step">
-    <h2><span class="num">6</span>Turn on Remote Login (SSH)</h2>
-    <p>Lets Joel connect over Tailscale. Do this by hand in Settings:</p>
-    <p class="ok"><b class="hl">System Settings → General → Sharing → turn ON "Remote Login"</b></p>
-    <p>It will show a line like <code class="inl">ssh youraccount@your-mac</code>. <b class="hl">Text that whole line to Joel.</b></p>
-  </div>
-
-  <div class="step">
-    <h2><span class="num">7</span>Starter skill pack (optional)</h2>
-    <p>Adds the basics: research agent, simple archive, save-session. Paste in Ghostty.</p>
-    <div class="cmd"><code id="c7">curl -fsSL https://thirstyopenclaw-glitch.github.io/claude-onboard/starter-pack.sh | bash</code><button onclick="cp('c7',this)">COPY</button></div>
-    <div class="note">After it finishes, <b class="hl">quit Claude Code and run <code class="inl">claude</code> again</b> so it picks up the new commands. Then type <code class="inl">/research</code> to test.</div>
-  </div>
-
-  <div class="step">
-    <h2><span class="num">8</span>You're set — try it</h2>
-    <p>In Claude Code, just talk to it like a person, or type a slash command:</p>
-    <div class="cmd"><code id="c8">/research what's the weather in Park City today</code><button onclick="cp('c8',this)">COPY</button></div>
-    <p>That's the whole setup. <b class="hl">Text Joel "done"</b> and he'll finish the rest remotely.</p>
+    <h2><span class="num">4</span>Text Joel "ready"</h2>
+    <p>The bootstrap prints a line like <code class="inl">ssh you@your-ip</code>. <b class="hl">Send that to Joel.</b> He connects and installs everything else — Ghostty, Claude Code, your skills — remotely. You're done. ✅</p>
   </div>
 
 </main>
-<footer>OpenClaw · Claude Code onboarding · v2</footer>
+<footer>OpenClaw · Claude Code onboarding · v3 (hands-off)</footer>
 <script>
 function cp(id,btn){
   const t=document.getElementById(id).innerText;
